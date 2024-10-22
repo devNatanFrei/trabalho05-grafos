@@ -44,20 +44,26 @@ class Grafo:
         stack = deque([initial_vertex])
 
         while stack:
-            v = stack.pop()  
-            for neighbor in self.grafo[v]:  
+            v = stack.pop()
+            if v not in visited: 
+                visited.add(v)
+            for neighbor in self.grafo[v]:
                 if neighbor not in visited:
                     stack.append(neighbor)
-                    visited.add(neighbor)
-        
+    
         return visited
 
-    def plot_graph(self):
+
+    def plot_graph(self, highlight_edges=None):
         G = nx.Graph(self.grafo)
         pos = nx.spring_layout(G)
-        nx.draw(G, pos, with_labels=True, node_color='lightblue', node_size=700, font_size=15)
-        plt.title("Árvore")
+
+        nx.draw(G, pos, with_labels=True, node_size=700, font_size=15)
+        if highlight_edges:
+            nx.draw_networkx_edges(G, pos, edgelist=highlight_edges, edge_color='red', width=2)
+        plt.title("Árvore DFS")
         plt.show()
+
 
 caminho_arquivo = 'num.txt'  
 grafh = Grafo(caminho_arquivo) 
@@ -67,9 +73,9 @@ vertice_inicial = int(input('Digite o vértice inicial: '))
 if vertice_inicial not in grafh.grafo:
     print('Vértice não encontrado')
     exit()
-elif vertice_inicial in grafh.grafo:
-    print("DFS Recursivo:", grafh.dfs_recur(vertice_inicial))
-    print("DFS Iterativo:", grafh.dfs_iterative(vertice_inicial))
+print("DFS Recursivo:", grafh.dfs_recur(vertice_inicial))
+print("DFS Iterativo:", grafh.dfs_iterative(vertice_inicial))
 
 
-grafh.plot_graph()
+
+grafh.plot_graph(highlight_edges=[])
