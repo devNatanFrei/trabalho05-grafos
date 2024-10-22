@@ -1,6 +1,4 @@
 from collections import deque
-import matplotlib.pyplot as plt
-import networkx as nx
 
 class Grafo:
     def __init__(self, arquivo):
@@ -10,7 +8,7 @@ class Grafo:
     def load_data(self, arquivo):
         with open(arquivo, 'r') as f:
             linhas = f.readlines()
-            for linha in linhas[1:]:  
+            for linha in linhas:  
                 linha = linha.strip()
                 if linha: 
                     a, b = map(int, linha.split())
@@ -27,37 +25,35 @@ class Grafo:
         if a not in self.grafo[b]:
             self.grafo[b].append(a)
 
-    def dfs_recur(self, graph, initial_vertex, visited):
+    def dfs_recur(self, initial_vertex, visited=None):
         if visited is None:
             visited = set()
 
         visited.add(initial_vertex)
         
-        for vertex in graph[initial_vertex]:
+        for vertex in self.grafo[initial_vertex]:
             if vertex not in visited:
-                self.dfs_recur(graph, vertex, visited)
+                self.dfs_recur(vertex, visited)
         
         return visited
 
-    def dfs_iterative(self, graph, initial_vertex):
+    def dfs_iterative(self, initial_vertex):
         visited = set()
         stack = deque([initial_vertex])
 
         while stack:
-            v = stack[0]
-            stack.pop()
-            for neighbor in graph[v]:
+            v = stack.pop()  
+            for neighbor in self.grafo[v]:  
                 if neighbor not in visited:
                     stack.append(neighbor)
                     visited.add(neighbor)
         
         return visited
 
-
 caminho_arquivo = 'num.txt'  
 grafh = Grafo(caminho_arquivo) 
 print(grafh.grafo)
 
-vertice_inicial = int(input('Digite o vértice inicial: ') ) 
-print(grafh.dfs_recur(grafh.grafo, vertice_inicial, None))
-print(grafh.dfs_iterative(grafh.grafo, vertice_inicial))
+vertice_inicial = int(input('Digite o vértice inicial: ')) 
+print("DFS Recursivo:", grafh.dfs_recur(vertice_inicial))
+print("DFS Iterativo:", grafh.dfs_iterative(vertice_inicial))
