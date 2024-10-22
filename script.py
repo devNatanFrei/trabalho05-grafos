@@ -1,4 +1,6 @@
 from collections import deque
+import networkx as nx
+import matplotlib.pyplot as plt
 
 class Grafo:
     def __init__(self, arquivo):
@@ -50,6 +52,12 @@ class Grafo:
         
         return visited
 
+    def plot_graph(self):
+        G = nx.Graph(self.grafo)
+        pos = nx.spring_layout(G)
+        nx.draw(G, pos, with_labels=True, node_color='lightblue', node_size=700, font_size=15)
+        plt.title("Grafo")
+        plt.show()
 
 caminho_arquivo = 'num.txt'  
 grafh = Grafo(caminho_arquivo) 
@@ -64,3 +72,4 @@ elif vertice_inicial in grafh.grafo:
     print("DFS Iterativo:", grafh.dfs_iterative(vertice_inicial))
 
 
+grafh.plot_graph()
