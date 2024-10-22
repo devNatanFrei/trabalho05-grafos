@@ -56,7 +56,7 @@ class Grafo:
         G = nx.Graph(self.grafo)
         pos = nx.spring_layout(G)
         nx.draw(G, pos, with_labels=True, node_color='lightblue', node_size=700, font_size=15)
-        plt.title("Grafo")
+        plt.title("Árvore")
         plt.show()
 
 caminho_arquivo = 'num.txt'  
