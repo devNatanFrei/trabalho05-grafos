@@ -5,13 +5,11 @@ import networkx as nx
 class Grafo:
     def __init__(self, arquivo):
         self.grafo = {}
-        self.values = 0
         self.load_data(arquivo)
 
     def load_data(self, arquivo):
         with open(arquivo, 'r') as f:
             linhas = f.readlines()
-            self.values = int(linhas[0].strip())
             for linha in linhas[1:]:  
                 linha = linha.strip()
                 if linha: 
@@ -60,6 +58,6 @@ caminho_arquivo = 'num.txt'
 grafh = Grafo(caminho_arquivo) 
 print(grafh.grafo)
 
-vertice_inicial = grafh.values  
+vertice_inicial = int(input('Digite o vértice inicial: ') ) 
 print(grafh.dfs_recur(grafh.grafo, vertice_inicial, None))
 print(grafh.dfs_iterative(grafh.grafo, vertice_inicial))
