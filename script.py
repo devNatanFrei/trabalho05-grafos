@@ -50,10 +50,17 @@ class Grafo:
         
         return visited
 
+
 caminho_arquivo = 'num.txt'  
 grafh = Grafo(caminho_arquivo) 
 print(grafh.grafo)
 
 vertice_inicial = int(input('Digite o vértice inicial: ')) 
-print("DFS Recursivo:", grafh.dfs_recur(vertice_inicial))
-print("DFS Iterativo:", grafh.dfs_iterative(vertice_inicial))
+if vertice_inicial not in grafh.grafo:
+    print('Vértice não encontrado')
+    exit()
+elif vertice_inicial in grafh.grafo:
+    print("DFS Recursivo:", grafh.dfs_recur(vertice_inicial))
+    print("DFS Iterativo:", grafh.dfs_iterative(vertice_inicial))
+
+
