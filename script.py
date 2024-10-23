@@ -38,7 +38,7 @@ class Grafo:
             if v not in path:
                 path.append(v)  
 
-            for w in self.grafo[v]:
+            for w in reversed(self.grafo[v]):
                 if w not in visited:
                     stack.append(w)
                     visited.add(w)
@@ -123,6 +123,7 @@ try:
     print("Caminho: ", caminho_iterativo)
 
     grafh.plot_graph()
+
 
 except ValueError:
     print("Por favor, insira um número inteiro.")
