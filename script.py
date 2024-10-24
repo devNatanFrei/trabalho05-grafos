@@ -91,12 +91,14 @@ try:
     print("Visitados: ", visitados_recursivo)
     print("Caminho: ", caminho_recursivo)
     print()
+
     print("DFS Iterativo:")
     visitados_iterativo, caminho_iterativo, arvore_dfs_iterativa = grafh.dfs_iterative(vertice_inicial)
     print("Visitados: ", visitados_iterativo)
     print("Caminho: ", caminho_iterativo)
 
-    grafh.plot_graph(arvore_dfs_recursiva, nome_arquivo='grafo_dfs.png')
+    grafh.plot_graph(arvore_dfs_recursiva, nome_arquivo='grafo_dfs_recursivo.png')
+    grafh.plot_graph(arvore_dfs_iterativa, nome_arquivo='grafo_dfs_iterativa.png')
 
 except ValueError:
     print("Por favor, insira um número inteiro.")
