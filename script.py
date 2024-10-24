@@ -72,7 +72,7 @@ class Grafo:
             pos[node][1] = -level  
 
         plt.figure(figsize=(12, 8))  
-        nx.draw(G, pos, with_labels=True, node_size=700, font_size=15, node_color='lightblue', edge_color='gray')
+        nx.draw(G, pos, with_labels=True, node_size=700, font_size=15, node_color='lightgreen', edge_color='gray')
         
         plt.title("Grafo - DFS (Representação em Árvore)")
         plt.axis('off')
@@ -82,7 +82,6 @@ class Grafo:
      
         levels = {}
         for node in G.nodes():
-
             levels[node] = self.get_node_level(G, node)
         return levels
 
