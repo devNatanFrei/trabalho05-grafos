@@ -90,7 +90,7 @@ try:
     visitados_recursivo, caminho_recursivo, arvore_dfs_recursiva = grafh.dfs_recursive(vertice_inicial)
     print("Visitados: ", visitados_recursivo)
     print("Caminho: ", caminho_recursivo)
-
+    print()
     print("DFS Iterativo:")
     visitados_iterativo, caminho_iterativo, arvore_dfs_iterativa = grafh.dfs_iterative(vertice_inicial)
     print("Visitados: ", visitados_iterativo)
