@@ -55,7 +55,7 @@ class Grafo:
             v = stack.pop()
             if v not in path:
                 path.append(v)
-            for w in reversed(self.grafo[v]):
+            for w in self.grafo[v]:
                 if w not in visited:
                     stack.append(w)
                     arvore_dfs.append((v, w))
