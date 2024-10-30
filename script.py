@@ -27,6 +27,31 @@ class Grafo:
         if a not in self.grafo[b]:
             self.grafo[b].append(a)
 
+    def dfs_stack(self, start):
+        visited = set()
+        stack = [(start, None)]
+        path = []
+        arvore_dfs = []
+    
+        while stack:
+            vertex, dad = stack.pop()
+        
+            if vertex not in visited:
+                visited.add(vertex)
+                path.append(vertex)
+                print(f"Visitando: {vertex}")
+                
+                if dad is not None:
+                    arvore_dfs.append((dad, vertex))
+        
+
+                for neighbor in sorted(self.grafo.get(vertex, []), reverse=True):
+                    if neighbor not in visited:
+                        stack.append((neighbor, vertex))
+          
+
+        return visited, path, arvore_dfs
+
     def dfs_recursive(self, s, visited=None, path=None, arvore_dfs=None):
         if visited is None:
             visited = set()
@@ -37,37 +62,23 @@ class Grafo:
         
         visited.add(s)
         path.append(s)
+        print(f"Visitando: {s}")
 
-        for w in self.grafo[s]:
+        for w in sorted(self.grafo[s]):
             if w not in visited:
                 arvore_dfs.append((s, w))
                 self.dfs_recursive(w, visited, path, arvore_dfs)
 
         return visited, path, arvore_dfs
 
-    def dfs_iterative(self, s, visited=None):
-        visited = set()
-        stack = deque([s])
-        visited.add(s)
-        path = []
-        arvore_dfs = []
-        while stack:
-            v = stack.pop()
-            if v not in path:
-                path.append(v)
-            for w in self.grafo[v]:
-                if w not in visited:
-                    stack.append(w)
-                    arvore_dfs.append((v, w))
-                    visited.add(w)
-        return visited, path, arvore_dfs
-
     def plot_graph(self, arvore_dfs, nome_arquivo='grafo_dfs.png'):
         G = nx.Graph(self.grafo)
+        
         pos = nx.spring_layout(G, seed=42)
 
         plt.figure(figsize=(12, 8))
         nx.draw(G, pos, with_labels=True, node_size=700, font_size=15, node_color='lightblue', edge_color='lightgray')
+        
         dfs_tree = nx.Graph()
         dfs_tree.add_edges_from(arvore_dfs)
         nx.draw_networkx_edges(dfs_tree, pos, edge_color='red', width=2)
@@ -86,19 +97,18 @@ try:
         print('Vértice não encontrado')
         exit()
 
-    print("DFS Recursivo:")
+    print("\nDFS Recursivo:")
     visitados_recursivo, caminho_recursivo, arvore_dfs_recursiva = grafh.dfs_recursive(vertice_inicial)
-    print("Visitados: ", visitados_recursivo)
+    print("\nVisitados: ", visitados_recursivo)
     print("Caminho: ", caminho_recursivo)
-    print()
 
-    print("DFS Iterativo:")
-    visitados_iterativo, caminho_iterativo, arvore_dfs_iterativa = grafh.dfs_iterative(vertice_inicial)
-    print("Visitados: ", visitados_iterativo)
+    print("\nDFS Iterativo (usando pilha):")
+    visitados_iterativo, caminho_iterativo, arvore_dfs_iterativa = grafh.dfs_stack(vertice_inicial)
+    print("\nVisitados: ", visitados_iterativo)
     print("Caminho: ", caminho_iterativo)
 
     grafh.plot_graph(arvore_dfs_recursiva, nome_arquivo='grafo_dfs_recursivo.png')
-    grafh.plot_graph(arvore_dfs_iterativa, nome_arquivo='grafo_dfs_iterativa.png')
+    grafh.plot_graph(arvore_dfs_iterativa, nome_arquivo='grafo_dfs_pilha.png')
 
 except ValueError:
     print("Por favor, insira um número inteiro.")
